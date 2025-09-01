@@ -1,13 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Helmet } from 'react-helmet-async';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
+import { HeroSection } from '@/components/sections/HeroSection';
+import { CategoriesSection } from '@/components/sections/CategoriesSection';
+import { DiscountSection } from '@/components/sections/DiscountSection';
+import { TrustSection } from '@/components/sections/TrustSection';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <>
+      <Helmet>
+        <title>MedX-Mart - Your Trusted Medicine E-Commerce Platform</title>
+        <meta 
+          name="description" 
+          content="Shop authentic medicines from verified vendors. FDA approved medications, fast delivery, 24/7 support. Your health, our priority." 
+        />
+        <meta name="keywords" content="medicine, pharmacy, online pharmacy, prescription, healthcare, medical supplies" />
+        <meta property="og:title" content="MedX-Mart - Your Trusted Medicine E-Commerce Platform" />
+        <meta property="og:description" content="Shop authentic medicines from verified vendors. FDA approved medications, fast delivery, 24/7 support." />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://medx-mart.com" />
+      </Helmet>
+
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        
+        <main>
+          <HeroSection />
+          <CategoriesSection />
+          <DiscountSection />
+          <TrustSection />
+        </main>
+
+        <Footer />
       </div>
-    </div>
+    </>
   );
 };
 
