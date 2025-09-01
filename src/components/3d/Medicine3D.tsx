@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Box, Cylinder, Sphere } from '@react-three/drei';
-import { Mesh } from 'three';
+import { Mesh, Group } from 'three';
 
 interface Medicine3DProps {
   type?: 'pill' | 'capsule' | 'bottle' | 'tablet';
@@ -17,15 +17,17 @@ export function Medicine3D({
   scale = 1 
 }: Medicine3DProps) {
   const meshRef = useRef<Mesh>(null!);
+  const groupRef = useRef<Group>(null!);
   const [hovered, setHovered] = useState(false);
 
   useFrame((state, delta) => {
-    if (meshRef.current) {
+    const ref = type === 'capsule' || type === 'bottle' ? groupRef : meshRef;
+    if (ref.current) {
       if (autoRotate) {
-        meshRef.current.rotation.y += delta * 0.5;
+        ref.current.rotation.y += delta * 0.5;
       }
       if (hovered) {
-        meshRef.current.rotation.x += delta * 2;
+        ref.current.rotation.x += delta * 2;
       }
     }
   });
@@ -48,7 +50,7 @@ export function Medicine3D({
       case 'capsule':
         return (
           <group
-            ref={meshRef}
+            ref={groupRef}
             scale={scale}
             onPointerEnter={() => setHovered(true)}
             onPointerLeave={() => setHovered(false)}
@@ -68,7 +70,7 @@ export function Medicine3D({
       case 'bottle':
         return (
           <group
-            ref={meshRef}
+            ref={groupRef}
             scale={scale}
             onPointerEnter={() => setHovered(true)}
             onPointerLeave={() => setHovered(false)}
